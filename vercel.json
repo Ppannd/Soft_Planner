@@ -1,3 +1,14 @@
 {
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+  "routes": [
+    {
+      "src": "/api/.*",
+      "dest": "/api/auth.js",
+      "methods": ["GET", "POST", "PUT", "PATCH"]
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "continue": true
+    }
+  ]
 }
