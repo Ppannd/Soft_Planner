@@ -313,7 +313,7 @@
     </div>
 
    <script>
-  document.getElementById('registerForm').addEventListener('submit', async (e) => {
+   document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const name = document.getElementById('name').value;
@@ -321,12 +321,11 @@
   const password = document.getElementById('password').value;
   
   try {
-    console.log('Attempting registration with:', { name, email, password });
-    
     const response = await fetch('/api/auth', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({
         name,
@@ -335,23 +334,21 @@
       })
     });
     
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const result = await response.json();
-    console.log('Registration response:', result);
     
     if (result.success) {
-      localStorage.setItem('user', JSON.stringify({
-        id: result.userId,
-        name: result.name,
-        email: result.email
-      }));
-      console.log('Registration successful, redirecting...');
+      localStorage.setItem('user', JSON.stringify(result.user));
       window.location.href = 'home.html';
     } else {
-      alert(result.error || 'Registration failed');
+      alert(result.error || 'Ошибка регистрации');
     }
   } catch (error) {
-    console.error('Registration error:', error);
-    alert('An error occurred during registration');
+    console.error('Registration failed:', error);
+    alert('Ошибка при регистрации. Проверьте консоль для деталей.');
   }
 });
 </script>
