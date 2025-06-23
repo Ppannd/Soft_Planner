@@ -280,24 +280,14 @@
     </div>
 
     <script>
- document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    document.querySelector('form').addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  
+
   try {
-    const response = await fetch(`/api/auth?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
+    const response = await fetch(`/api/auth?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
     const result = await response.json();
     
     if (result.success) {
@@ -307,8 +297,8 @@
       alert(result.error || 'Ошибка авторизации');
     }
   } catch (error) {
-    console.error('Login failed:', error);
-    alert('Ошибка при входе. Проверьте консоль для деталей.');
+    console.error('Error:', error);
+    alert('Ошибка при входе');
   }
 });
 </script>
