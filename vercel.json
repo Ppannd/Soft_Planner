@@ -1,14 +1,34 @@
 {
   "routes": [
     {
-      "src": "/api/.*",
+      "src": "/api/register",
       "dest": "/api/auth.js",
-      "methods": ["GET", "POST", "PUT", "PATCH"]
+      "methods": ["POST"]
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html",
-      "continue": true
+      "src": "/api/login",
+      "dest": "/api/auth.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/invite",
+      "dest": "/api/auth.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/api/notifications",
+      "dest": "/api/auth.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/settings",
+      "dest": "/api/auth.js",
+      "methods": ["PUT"]
+    },
+    {
+      "src": "/api/tasks",
+      "dest": "/api/auth.js",
+      "methods": ["POST"]
     }
   ]
 }
