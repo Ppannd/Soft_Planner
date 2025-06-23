@@ -313,30 +313,27 @@
     </div>
 
    <script>
-   document.getElementById('registerForm').addEventListener('submit', async (e) => {
+     document.querySelector('form').addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  
+  const passwordAgain = document.getElementById('password-again').value;
+
+  if (password !== passwordAgain) {
+    alert('Пароли не совпадают');
+    return;
+  }
+
   try {
     const response = await fetch('/api/auth', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name,
-        email,
-        password
-      })
+      body: JSON.stringify({ name, email, password })
     });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     
     const result = await response.json();
     
@@ -347,8 +344,8 @@
       alert(result.error || 'Ошибка регистрации');
     }
   } catch (error) {
-    console.error('Registration failed:', error);
-    alert('Ошибка при регистрации. Проверьте консоль для деталей.');
+    console.error('Error:', error);
+    alert('Ошибка при регистрации');
   }
 });
 </script>
