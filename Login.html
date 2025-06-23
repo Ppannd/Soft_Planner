@@ -287,28 +287,28 @@
   const password = document.getElementById('password').value;
   
   try {
-    console.log('Attempting login with:', { email, password });
-    
     const response = await fetch(`/api/auth?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Accept': 'application/json'
       }
     });
     
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const result = await response.json();
-    console.log('Login response:', result);
     
     if (result.success) {
       localStorage.setItem('user', JSON.stringify(result.user));
-      console.log('Login successful, redirecting...');
       window.location.href = 'home.html';
     } else {
-      alert(result.error || 'Login failed');
+      alert(result.error || 'Ошибка авторизации');
     }
   } catch (error) {
-    console.error('Login error:', error);
-    alert('An error occurred during login');
+    console.error('Login failed:', error);
+    alert('Ошибка при входе. Проверьте консоль для деталей.');
   }
 });
 </script>
