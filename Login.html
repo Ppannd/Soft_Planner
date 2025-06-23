@@ -280,31 +280,20 @@
     </div>
 
     <script>
-        // Создание анимированных пузырьков
-        function createBubbles() {
-            const bubblesContainer = document.getElementById('bubbles');
-            const bubbleCount = 12;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-                
-                const size = Math.random() * 80 + 40; // 40-120px
-                const posX = Math.random() * 100;
-                const duration = Math.random() * 25 + 15; // 15-40 секунд
-                const delay = Math.random() * 15;
-                
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                bubble.style.left = `${posX}%`;
-                bubble.style.animationDuration = `${duration}s`;
-                bubble.style.animationDelay = `${delay}s`;
-                
-                bubblesContainer.appendChild(bubble);
-            }
-        }
-        
-        window.addEventListener('load', createBubbles);
-    </script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const response = await fetch(`/api/auth?email=${encodeURIComponent(document.getElementById('email').value)}&password=${encodeURIComponent(document.getElementById('password').value)}`, {
+    method: 'GET'
+  });
+  
+  const result = await response.json();
+  if (result.success) {
+    window.location.href = 'home.html';
+  } else {
+    alert(result.error || 'Ошибка авторизации');
+  }
+});
+</script>
 </body>
 </html>
