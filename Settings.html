@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Soft Planner</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #101F37;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.light-theme {
+            background-color: #f5f5f7;
+            color: #1c1c1e;
+        }
+
+        /* Header */
+        .header {
+            padding: 15px 20px;
+            text-align: left;
+            background-color: #131932;
+            border-bottom: 1px solid #7881F6;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .light-theme .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #d1d1d6;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #7881F6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #007aff;
+            margin-right: 15px;
+        }
+
+        /* Settings Container */
+        .settings-container {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .settings-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #7881F6;
+        }
+
+        .light-theme .settings-title {
+            color: #007aff;
+        }
+
+        .settings-group {
+            margin-bottom: 30px;
+        }
+
+        .settings-group-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #7881F6;
+        }
+
+        .light-theme .settings-group-title {
+            color: #007aff;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #131932;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .light-theme .setting-item {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .setting-item:hover {
+            background-color: #1A1C44;
+        }
+
+        .light-theme .setting-item:hover {
+            background-color: #f2f2f7;
+        }
+
+        .setting-label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .setting-value {
+            font-size: 14px;
+            color: #8e8e93;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #2c2c2e;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .light-theme .slider {
+            background-color: #d1d1d6;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #7881F6;
+        }
+
+        .light-theme input:checked + .slider {
+            background-color: #007aff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+
+        .language-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .language-option {
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: #1A1C44;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .light-theme .language-option {
+            background-color: #f2f2f7;
+        }
+
+        .language-option.active {
+            background-color: #7881F6;
+            color: white;
+        }
+
+        .light-theme .language-option.active {
+            background-color: #007aff;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: flex;
+            align-items: center;
+            color: #7881F6;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .light-theme .back-button {
+            color: #007aff;
+        }
+
+        .back-button span {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <div class="header">
+        <div class="user-avatar">S</div>
+        <h1>Settings</h1>
+    </div>
+
+    <div class="settings-container">
+        <a href="home.html" class="back-button">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Back
+        </a>
+
+        <h2 class="settings-title">Preferences</h2>
+
+        <div class="settings-group">
+            <h3 class="settings-group-title">Appearance</h3>
+            <div class="setting-item" id="themeToggle">
+                <div>
+                    <div class="setting-label">Dark Mode</div>
+                    <div class="setting-value">Switch between light and dark theme</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeCheckbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <h3 class="settings-group-title">Language</h3>
+            <div class="setting-item">
+                <div>
+                    <div class="setting-label">Application Language</div>
+                    <div class="setting-value">Select your preferred language</div>
+                </div>
+                <div class="language-selector">
+                    <div class="language-option" data-lang="en">EN</div>
+                    <div class="language-option active" data-lang="ru">RU</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="settings-group">
+            <h3 class="settings-group-title">Notifications</h3>
+            <div class="setting-item">
+                <div>
+                    <div class="setting-label">Enable Notifications</div>
+                    <div class="setting-value">Get reminders for your tasks</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeCheckbox = document.getElementById('themeCheckbox');
+        const body = document.body;
+
+        // Check saved theme preference
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-theme');
+            themeCheckbox.checked = false;
+        }
+
+        themeCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Language Selector Functionality
+        const languageOptions = document.querySelectorAll('.language-option');
+        
+        // Check saved language preference
+        if (localStorage.getItem('language')) {
+            const savedLang = localStorage.getItem('language');
+            languageOptions.forEach(option => {
+                option.classList.toggle('active', option.dataset.lang === savedLang);
+            });
+        }
+
+        languageOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                languageOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                localStorage.setItem('language', this.dataset.lang);
+                // Here you would typically reload the page or update content
+                alert(`Language changed to ${this.dataset.lang === 'en' ? 'English' : 'Russian'}`);
+            });
+        });
+    </script>
+</body>
+</html>

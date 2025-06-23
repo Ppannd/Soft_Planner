@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive - Soft Planner</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #101F37;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-theme {
+            background-color: #f5f5f7;
+            color: #1c1c1e;
+        }
+
+        /* Header */
+        .header {
+            padding: 15px 20px;
+            text-align: left;
+            background-color: #131932;
+            border-bottom: 1px solid #7881F6;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .light-theme .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #d1d1d6;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #7881F6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .light-theme .user-avatar {
+            background-color: #007aff;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #007aff;
+            margin-right: 15px;
+        }
+
+        .light-theme .header h1 {
+            color: #007aff;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: flex;
+            align-items: center;
+            color: #7881F6;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .light-theme .back-button {
+            color: #007aff;
+        }
+
+        .back-button span {
+            margin-right: 5px;
+        }
+
+        /* Archive Container */
+        .archive-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .archive-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #7881F6;
+        }
+
+        .light-theme .archive-title {
+            color: #007aff;
+        }
+
+        /* Archive Items */
+        .archive-item {
+            background-color: #131932;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .light-theme .archive-item {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .archive-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .archive-item-title {
+            font-size: 17px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .light-theme .archive-item-title {
+            color: #1c1c1e;
+        }
+
+        .archive-item-date {
+            font-size: 14px;
+            color: #8e8e93;
+        }
+
+        .archive-item-description {
+            font-size: 14px;
+            color: #8e8e93;
+            margin-bottom: 10px;
+        }
+
+        .archive-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .archive-tag {
+            background-color: #233E68;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .light-theme .archive-tag {
+            background-color: #e5e5ea;
+        }
+
+        .archive-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .restore-btn, .delete-btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .restore-btn {
+            background-color: #007aff;
+            color: white;
+            border: none;
+        }
+
+        .restore-btn:hover {
+            background-color: #0062cc;
+        }
+
+        .delete-btn {
+            background-color: #ff3b30;
+            color: white;
+            border: none;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc3128;
+        }
+
+        /* Subtasks in archive */
+        .archive-subtasks {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 2px solid #7881F6;
+        }
+
+        .light-theme .archive-subtasks {
+            border-left: 2px solid #007aff;
+        }
+
+        .archive-subtask {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .archive-subtask-checkbox {
+            margin-right: 10px;
+            accent-color: #7881F6;
+        }
+
+        .light-theme .archive-subtask-checkbox {
+            accent-color: #007aff;
+        }
+
+        .archive-subtask-text {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .light-theme .archive-subtask-text {
+            color: #1c1c1e;
+        }
+
+        .archive-subtask.completed .archive-subtask-text {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            color: #8e8e93;
+            margin-top: 40px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user-avatar">S</div>
+        <h1>Archive</h1>
+    </div>
+
+    <div class="archive-container">
+        <a href="home.html" class="back-button">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Back
+        </a>
+
+        <h2 class="archive-title">Completed Tasks</h2>
+
+        <div id="archiveItems">
+            <!-- Archive items will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            loadArchiveItems();
+        });
+
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-theme');
+            }
+        }
+
+        function loadArchiveItems() {
+            const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const completedTasks = allTasks.filter(task => task.completed);
+            const archiveContainer = document.getElementById('archiveItems');
+            
+            if (completedTasks.length === 0) {
+                archiveContainer.innerHTML = '<p class="empty-state">No completed tasks yet</p>';
+                return;
+            }
+            
+            archiveContainer.innerHTML = '';
+            
+            completedTasks.forEach(task => {
+                const archiveItem = document.createElement('div');
+                archiveItem.className = 'archive-item';
+                archiveItem.dataset.id = task.id;
+                
+                let subtasksHtml = '';
+                if (task.subtasks?.length) {
+                    subtasksHtml = `
+                        <div class="archive-subtasks">
+                            ${task.subtasks.map(subtask => `
+                                <div class="archive-subtask ${subtask.completed ? 'completed' : ''}">
+                                    <input type="checkbox" class="archive-subtask-checkbox" ${subtask.completed ? 'checked' : ''} disabled>
+                                    <span class="archive-subtask-text">${subtask.text}</span>
+                                </div>
+                            `).join('')}
+                        </div>`;
+                }
+                
+                archiveItem.innerHTML = `
+                    <div class="archive-item-header">
+                        <div class="archive-item-title">${task.name}</div>
+                        <div class="archive-item-date">${task.date}, ${task.time}</div>
+                    </div>
+                    ${task.description ? `<div class="archive-item-description">${task.description}</div>` : ''}
+                    <div class="archive-item-tags">
+                        ${task.tags.map(tag => `<span class="archive-tag">#${tag}</span>`).join('')}
+                    </div>
+                    ${subtasksHtml}
+                    <div class="archive-item-actions">
+                        <button class="restore-btn">Restore</button>
+                        <button class="delete-btn">Delete</button>
+                    </div>`;
+                
+                archiveContainer.appendChild(archiveItem);
+                
+                // Add event listeners for buttons
+                archiveItem.querySelector('.restore-btn').addEventListener('click', () => restoreTask(task.id));
+                archiveItem.querySelector('.delete-btn').addEventListener('click', () => deleteTask(task.id));
+            });
+        }
+
+        function restoreTask(taskId) {
+            const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const taskIndex = allTasks.findIndex(task => task.id == taskId);
+            
+            if (taskIndex !== -1) {
+                allTasks[taskIndex].completed = false;
+                localStorage.setItem('tasks', JSON.stringify(allTasks));
+                loadArchiveItems();
+            }
+        }
+
+        function deleteTask(taskId) {
+            if (!confirm('Are you sure you want to permanently delete this task?')) return;
+            
+            const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const updatedTasks = allTasks.filter(task => task.id != taskId);
+            
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+            loadArchiveItems();
+        }
+    </script>
+</body>
+</html>
