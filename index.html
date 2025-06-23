@@ -328,6 +328,11 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   
   const result = await response.json();
   if (result.success) {
+    localStorage.setItem('user', JSON.stringify({
+      id: result.userId,
+      name: result.name,
+      email: result.email
+    }));
     window.location.href = 'home.html';
   } else {
     alert(result.error || 'Ошибка регистрации');
