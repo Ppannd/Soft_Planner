@@ -301,7 +301,7 @@
             </div>
 
 
-           <button type="submit" class="submit-btn">CONTINUE</button>
+            <a href="home.html" class="submit-btn-link"><span class="btn-text">CONTINUE</span></a>
 
 
         <!--<button type="submit" class="submit-btn">CONTINUE</button>-->
@@ -312,42 +312,32 @@
         </div>
     </div>
 
-   <script>
-     document.querySelector('form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const passwordAgain = document.getElementById('password-again').value;
-
-  if (password !== passwordAgain) {
-    alert('Пароли не совпадают');
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, email, password })
-    });
-    
-    const result = await response.json();
-    
-    if (result.success) {
-      localStorage.setItem('user', JSON.stringify(result.user));
-      window.location.href = 'home.html';
-    } else {
-      alert(result.error || 'Ошибка регистрации');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Ошибка при регистрации');
-  }
-});
-</script>
+    <script>
+ 
+        function createBubbles() {
+            const bubblesContainer = document.getElementById('bubbles');
+            const bubbleCount = 12;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 50 + 40; // 40-120px
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 10 + 15; // 15-40 секунд
+                const delay = Math.random() * 15;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${posX}%`;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+                
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+        
+        window.addEventListener('load', createBubbles);
+    </script>
 </body>
 </html>
