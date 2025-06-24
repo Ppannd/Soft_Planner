@@ -19,10 +19,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            position: relative;
-            overflow: hidden;
         }
-
 
         .container {
             background-color: #1A1C44;
@@ -30,7 +27,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            min-height: 500px; /* Фиксированная высота как в регистрации */
+            min-height: 500px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -95,17 +92,10 @@
             border-color: #4a90e2;
         }
         
-        .password-hint {
-            font-size: 12px;
-            color: #888;
-            margin-top: 5px;
-        }
-        
         .submit-btn {
             width: 100%;
             padding: 14px;
             background-color: #7982F6;
-            color: white;
             border: none;
             border-radius: 5px;
             font-size: 16px;
@@ -114,19 +104,11 @@
             transition: all 0.3s;
             margin-top: 10px;
             position: relative;
-            color: transparent;
+            overflow: hidden;
         }
-        .submit-btn::after {
-            content: "CONTINUE";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(to right, #5AFF8C, #45DDEE); 
+        
+        .btn-text {
+            background: linear-gradient(to right, #5AFF8C, #45DDEE);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -162,51 +144,50 @@
         }
         
         .logo {
-            position: relative;
-            text-align: center;
-            padding-right: 0px;
+            text-align: left;
+            margin-bottom: 30px;
         }
-
-        .logo-icon {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }   
+        
         .logo h1 {
             display: flex;
             align-items: center;
-            gap: 2px;
+            gap: 10px;
             font-size: 35px;
             color: #7881F6;
             margin-bottom: 1px;
             font-weight: bold;
         }
-
+        
         .logo-icon {
-            display: inline-flex;
-            margin-left: -20px;
-            transform: translateY(-25px);
+            display: flex;
+            align-items: center;
         }
-
+        
         .logo-icon svg {
             width: 40px;
             height: 40px;
             color: #7982F6;
-            display: block;
         }
         
-        /* Распорка для выравнивания высоты */
-        .form-spacer {
-            flex: 1;
+        .logo p {
+            color: #8D9BB1;
+            font-size: 15px;
+            text-align: left;
+            margin-top: 5px;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    
     <div class="container">
         <div class="logo">
-            <h1>Soft Planner
+            <h1>
+                <span>Soft Planner</span>
                 <div class="logo-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
@@ -219,31 +200,54 @@
         <h2 class="form-title">Log in</h2>
         <div class="divider"></div>
         
-        <form>
+        <form id="loginForm">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="your@email.ru">
+                <input type="email" id="email" placeholder="your@email.com" required>
+                <div id="email-error" class="error-message"></div>
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="*********">
+                <input type="password" id="password" placeholder="*********" required>
                 <div class="login-link"><a href="ForgotPassword.html">Forgot Password?</a></div>
+                <div id="password-error" class="error-message"></div>
             </div>
             
-            <!-- Распорка для выравнивания высоты -->
-            <div class="form-spacer"></div>
-            
-            <button type="submit" class="submit-btn">CONTINUE</button>
+            <button type="submit" class="submit-btn"><span class="btn-text">CONTINUE</span></button>
         </form>
         
         <div class="login-link">
-            No register? <a href="index.html">Create account</a>
+            No account? <a href="index.html">Create account</a>
         </div>
     </div>
 
     <script>
-        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Очистка предыдущих ошибок
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Получаем сохраненные данные регистрации
+            const savedEmail = localStorage.getItem('userEmail');
+            const savedPassword = localStorage.getItem('userPassword');
+            
+            if (!email || !password) {
+                document.getElementById('email-error').textContent = 'Please fill in all fields';
+                return;
+            }
+            
+            if (email !== savedEmail || password !== savedPassword) {
+                document.getElementById('password-error').textContent = 'Invalid email or password';
+            } else {
+                // Успешный вход - перенаправляем на главную страницу
+                window.location.href = 'home.html';
+            }
+        });
     </script>
 </body>
 </html>
