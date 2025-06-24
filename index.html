@@ -260,8 +260,6 @@
     </style>
 </head>
 <body>
-    <!-- Контейнер для анимированных пузырьков -->
-    <div class="background-bubbles" id="bubbles"></div>
     
     <div class="container">
         <div class="logo">
@@ -312,32 +310,5 @@
         </div>
     </div>
 
-    <script>
- 
-        function createBubbles() {
-            const bubblesContainer = document.getElementById('bubbles');
-            const bubbleCount = 12;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-                
-                const size = Math.random() * 50 + 40; // 40-120px
-                const posX = Math.random() * 100;
-                const duration = Math.random() * 10 + 15; // 15-40 секунд
-                const delay = Math.random() * 15;
-                
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                bubble.style.left = `${posX}%`;
-                bubble.style.animationDuration = `${duration}s`;
-                bubble.style.animationDelay = `${delay}s`;
-                
-                bubblesContainer.appendChild(bubble);
-            }
-        }
-        
-        window.addEventListener('load', createBubbles);
-    </script>
 </body>
 </html>
