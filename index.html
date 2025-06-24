@@ -149,28 +149,39 @@
             text-decoration: underline;
         }
         
-        .logo h1 {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            font-size: 35px;
-            color: #7881F6;
-            margin-bottom: 1px;
-            font-weight: bold;
-        }
+        .logo {
+    text-align: left;
+    margin-bottom: 30px;
+    position: relative;
+}
 
-        .logo-icon {
-            display: inline-flex;
-            margin-left: -20px;
-            transform: translateY(-25px);
-        }
+.logo h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 35px;
+    color: #7881F6;
+    margin-bottom: 1px;
+    font-weight: bold;
+}
 
-        .logo-icon svg {
-            width: 40px;
-            height: 40px;
-            color: #7982F6;
-            display: block;
-        }
+.logo-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-icon svg {
+    width: 40px;
+    height: 40px;
+    color: #7982F6;
+    display: block;
+}
+
+.logo p {
+    color: #8D9BB1;
+    font-size: 15px;
+    text-align: left;
+}
         
         .error-message {
             color: #ff6b6b;
@@ -182,15 +193,16 @@
 <body>
     <div class="container">
         <div class="logo">
-            <h1>Soft Planner
-                <div class="logo-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                    </svg>
-                </div>
-            </h1>
-            <p>Increase your productivity</p>
+    <h1>
+        <span>Soft Planner</span>
+        <div class="logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
         </div>
+    </h1>
+    <p>Increase your productivity</p>
+</div>
         
         <h2 class="form-title">Create your account</h2>
         <div class="divider"></div>
