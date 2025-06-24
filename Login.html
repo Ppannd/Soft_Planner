@@ -238,8 +238,6 @@
     </style>
 </head>
 <body>
-    <!-- Контейнер для анимированных пузырьков -->
-    <div class="background-bubbles" id="bubbles"></div>
     
     <div class="container">
         <div class="logo">
@@ -278,29 +276,5 @@
             No register? <a href="index.html">Create account</a>
         </div>
     </div>
-
-    <script>
-    document.querySelector('form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  try {
-    const response = await fetch(`/api/auth?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
-    const result = await response.json();
-    
-    if (result.success) {
-      localStorage.setItem('user', JSON.stringify(result.user));
-      window.location.href = 'home.html';
-    } else {
-      alert(result.error || 'Ошибка авторизации');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Ошибка при входе');
-  }
-});
-</script>
 </body>
 </html>
